@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nursia", "..\..\Nursia\src\Nursia\Nursia.csproj", "{BF8832BD-50E6-4C1D-9744-DD25FC433B0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NursiaStudio", "..\src\NursiaStudio\NursiaStudio.csproj", "{225ED289-4F70-4B85-9936-DBE53EEFE5EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF8832BD-50E6-4C1D-9744-DD25FC433B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8832BD-50E6-4C1D-9744-DD25FC433B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8832BD-50E6-4C1D-9744-DD25FC433B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8832BD-50E6-4C1D-9744-DD25FC433B0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35ACDF4E-2CE2-46B1-A19F-35DC131069A1}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Myra.UIEditor\Myra.UIEditor.csproj
+	EndGlobalSection
+EndGlobal
