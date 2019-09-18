@@ -22,32 +22,10 @@ namespace NursiaStudio
 		private CameraInputController _controller;
 		private readonly ForwardRenderer _renderer = new ForwardRenderer();
 		private Desktop _desktop = null;
-		private MainPanel _mainPanel;
+		private MainForm _MainForm;
 		private SpriteBatch _spriteBatch;
 		private readonly FramesPerSecondCounter _fpsCounter = new FramesPerSecondCounter();
-		private static readonly List<DirectLight> _defaultLights = new List<DirectLight>();
 		private readonly Scene _scene = new Scene();
-
-		static StudioGame()
-		{
-			_defaultLights.Add(new DirectLight
-			{
-				Direction = new Vector3(-0.5265408f, -0.5735765f, -0.6275069f),
-				Color = new Color(1, 0.9607844f, 0.8078432f)
-			});
-
-			_defaultLights.Add(new DirectLight
-			{
-				Direction = new Vector3(0.7198464f, 0.3420201f, 0.6040227f),
-				Color = new Color(0.9647059f, 0.7607844f, 0.4078432f)
-			});
-
-			_defaultLights.Add(new DirectLight
-			{
-				Direction = new Vector3(0.4545195f, -0.7660444f, 0.4545195f),
-				Color = new Color(0.3231373f, 0.3607844f, 0.3937255f)
-			});
-		}
 
 		public StudioGame()
 		{
@@ -97,12 +75,10 @@ namespace NursiaStudio
 
 			// UI
 			MyraEnvironment.Game = this;
-			_mainPanel = new MainPanel();
-
-			_mainPanel._checkLightning.PressedChanged += _checkLightning_PressedChanged;
+			_MainForm = new MainForm();
 
 			_desktop = new Desktop();
-			_desktop.Widgets.Add(_mainPanel);
+			_desktop.Widgets.Add(_MainForm);
 
 			// Nursia
 			Nrs.Game = this;
@@ -139,15 +115,6 @@ namespace NursiaStudio
 			_scene.Camera.SetLookAt(new Vector3(10, 10, 10), Vector3.Zero);
 
 			_controller = new CameraInputController(_scene.Camera);
-		}
-
-		private void _checkLightning_PressedChanged(object sender, EventArgs e)
-		{
-			_scene.Lights.Clear();
-			if (_mainPanel._checkLightning.IsPressed)
-			{
-				_scene.Lights.AddRange(_defaultLights);
-			}
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -195,9 +162,9 @@ namespace NursiaStudio
 
 			DrawModel();
 
-			_mainPanel._labelCamera.Text = "Camera: " + _scene.Camera.ToString();
-			_mainPanel._labelFps.Text = "FPS: " + _fpsCounter.FramesPerSecond;
-			_mainPanel._labelMeshes.Text = "Meshes: " + _renderer.Statistics.MeshesDrawn;
+			_MainForm._labelCamera.Text = "Camera: " + _scene.Camera.ToString();
+			_MainForm._labelFps.Text = "FPS: " + _fpsCounter.FramesPerSecond;
+			_MainForm._labelMeshes.Text = "Meshes: " + _renderer.Statistics.MeshesDrawn;
 
 			_desktop.Render();
 
