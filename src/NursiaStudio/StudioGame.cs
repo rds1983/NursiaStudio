@@ -6,29 +6,38 @@ using Myra.Graphics2D.UI;
 using Nursia;
 using Nursia.Graphics3D;
 using Nursia.Graphics3D.ForwardRendering;
-using Nursia.Graphics3D.Lights;
 using Nursia.Graphics3D.Utils;
 using Nursia.Utilities;
 using NursiaStudio.UI;
-using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace NursiaStudio
 {
 	public class StudioGame : Game
 	{
+		private static StudioGame _instance;
+
 		private readonly GraphicsDeviceManager _graphics;
 		private CameraInputController _controller;
-		private readonly ForwardRenderer _renderer = new ForwardRenderer();
 		private Desktop _desktop = null;
-		private MainForm _MainForm;
+		private MainForm _mainForm;
 		private SpriteBatch _spriteBatch;
 		private readonly FramesPerSecondCounter _fpsCounter = new FramesPerSecondCounter();
 		private readonly Scene _scene = new Scene();
+		private readonly ForwardRenderer _renderer = new ForwardRenderer();
+
+		public static Scene Scene
+		{
+			get
+			{
+				return _instance._scene;
+			}
+		}
 
 		public StudioGame()
 		{
+			_instance = this;
+
 			_graphics = new GraphicsDeviceManager(this)
 			{
 				PreferredBackBufferWidth = 1200,
@@ -75,10 +84,10 @@ namespace NursiaStudio
 
 			// UI
 			MyraEnvironment.Game = this;
-			_MainForm = new MainForm();
+			_mainForm = new MainForm();
 
 			_desktop = new Desktop();
-			_desktop.Widgets.Add(_MainForm);
+			_desktop.Widgets.Add(_mainForm);
 
 			// Nursia
 			Nrs.Game = this;
@@ -142,16 +151,29 @@ namespace NursiaStudio
 			_controller.Update();
 		}
 
-		private void DrawModel()
+		private void DrawScene()
 		{
-			foreach(var model in _scene.Models)
-			{
-				model.UpdateCurrentAnimation();
-			}
+			var device = GraphicsDevice;
+			var oldViewport = device.Viewport;
+			var bounds = _mainForm._panelScene.ActualBounds;
 
-			_renderer.Begin();
-			_renderer.DrawScene(_scene);
-			_renderer.End();
+			try
+			{
+				device.Viewport = new Viewport(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+
+				foreach (var model in _scene.Models)
+				{
+					model.UpdateCurrentAnimation();
+				}
+
+				_renderer.Begin();
+				_renderer.DrawScene(_scene);
+				_renderer.End();
+			}
+			finally
+			{
+				device.Viewport = oldViewport;
+			}
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -160,11 +182,11 @@ namespace NursiaStudio
 
 			GraphicsDevice.Clear(Color.Black);
 
-			DrawModel();
+			DrawScene();
 
-			_MainForm._labelCamera.Text = "Camera: " + _scene.Camera.ToString();
-			_MainForm._labelFps.Text = "FPS: " + _fpsCounter.FramesPerSecond;
-			_MainForm._labelMeshes.Text = "Meshes: " + _renderer.Statistics.MeshesDrawn;
+			_mainForm._labelCamera.Text = "Camera: " + _scene.Camera.ToString();
+			_mainForm._labelFps.Text = "FPS: " + _fpsCounter.FramesPerSecond;
+			_mainForm._labelMeshes.Text = "Meshes: " + _renderer.Statistics.MeshesDrawn;
 
 			_desktop.Render();
 
