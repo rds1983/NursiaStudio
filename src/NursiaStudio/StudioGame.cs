@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.Properties;
 using Nursia;
 using Nursia.Graphics3D;
 using Nursia.Graphics3D.ForwardRendering;
+using Nursia.Graphics3D.Lights;
 using Nursia.Graphics3D.Utils;
 using Nursia.Utilities;
 using NursiaStudio.UI;
@@ -21,6 +23,7 @@ namespace NursiaStudio
 		private CameraInputController _controller;
 		private Desktop _desktop = null;
 		private MainForm _mainForm;
+		private PropertyGrid _propertyGrid;
 		private SpriteBatch _spriteBatch;
 		private readonly FramesPerSecondCounter _fpsCounter = new FramesPerSecondCounter();
 		private readonly Scene _scene = new Scene();
@@ -86,6 +89,11 @@ namespace NursiaStudio
 			MyraEnvironment.Game = this;
 			_mainForm = new MainForm();
 
+			_propertyGrid = new PropertyGrid();
+			_mainForm._panelProperties.Widgets.Add(_propertyGrid);
+
+			_mainForm._listExplorer.SelectedIndexChanged += _listExplorer_SelectedIndexChanged;
+
 			_desktop = new Desktop();
 			_desktop.Widgets.Add(_mainForm);
 
@@ -93,6 +101,14 @@ namespace NursiaStudio
 			Nrs.Game = this;
 
 			var folder = @"D:\Projects\Nursia\samples";
+
+			// Light
+			_scene.Lights.Add(new DirectLight
+			{
+				Color = Color.White,
+				Position = new Vector3(10000, 10000, -10000),
+				Direction = new Vector3(0, -1, 0)
+			});
 
 			// Water
 			_scene.WaterTiles.Add(new WaterTile(0, 0, 0, 100));
@@ -124,6 +140,50 @@ namespace NursiaStudio
 			_scene.Camera.SetLookAt(new Vector3(10, 10, 10), Vector3.Zero);
 
 			_controller = new CameraInputController(_scene.Camera);
+
+			RefreshExplorer();
+		}
+
+		private void _listExplorer_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			var list = _mainForm._listExplorer;
+			_propertyGrid.Object = list.SelectedItem.Tag;
+		}
+
+		private void RefreshExplorer()
+		{
+			var list = _mainForm._listExplorer;
+			list.Items.Clear();
+
+			// Lights
+			foreach(var light in _scene.Lights)
+			{
+				list.Items.Add(new ListItem
+				{
+					Text = "Directional Light",
+					Tag = light
+				});
+			}
+
+			// Skybox
+			if (_scene.Skybox != null)
+			{
+				list.Items.Add(new ListItem
+				{
+					Text = "Skybox",
+					Tag = _scene.Skybox
+				});
+			}
+
+			// Water
+			foreach(var water in _scene.WaterTiles)
+			{
+				list.Items.Add(new ListItem
+				{
+					Text = "Water",
+					Tag = water
+				});
+			}
 		}
 
 		protected override void Update(GameTime gameTime)

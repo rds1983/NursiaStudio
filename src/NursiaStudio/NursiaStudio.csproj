@@ -6,10 +6,10 @@
   
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.7.1.189" />
-    <PackageReference Include="Myra" Version="0.9.1.173" />
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Myra\src\Myra\Myra.csproj" />
     <ProjectReference Include="..\..\..\Nursia\src\Nursia\Nursia.csproj" />
   </ItemGroup>
 </Project>

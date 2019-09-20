@@ -70,7 +70,6 @@ namespace NursiaStudio.UI
 			menuItem4.Items.Add(_menuItemAbout);
 
 			var horizontalMenu1 = new HorizontalMenu();
-			horizontalMenu1.HoverIndex = null;
 			horizontalMenu1.Items.Add(menuItem1);
 			horizontalMenu1.Items.Add(menuItem2);
 			horizontalMenu1.Items.Add(menuItem3);

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nursia", "..\..\Nursia\src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NursiaStudio", "..\src\NursiaStudio\NursiaStudio.csproj", "{225ED289-4F70-4B85-9936-DBE53EEFE5EA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Myra", "..\..\Myra\src\Myra\Myra.csproj", "{590840CC-C994-4974-B315-5C2839983EB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{225ED289-4F70-4B85-9936-DBE53EEFE5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590840CC-C994-4974-B315-5C2839983EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590840CC-C994-4974-B315-5C2839983EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590840CC-C994-4974-B315-5C2839983EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590840CC-C994-4974-B315-5C2839983EB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
